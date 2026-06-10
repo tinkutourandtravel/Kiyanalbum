@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Photo Gallery</title>
+
+<style>
+body{
+    margin:0;
+    font-family:Arial;
+    background:linear-gradient(135deg,#ff9a9e,#fad0c4);
+}
+
+h1{
+    text-align:center;
+    padding:20px;
+    color:white;
+}
+
+/* GALLERY */
+.gallery{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
+    gap:10px;
+    padding:20px;
+}
+
+.gallery img{
+    width:100%;
+    height:180px;
+    object-fit:cover;
+    border-radius:12px;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+.gallery img:hover{
+    transform:scale(1.05);
+}
+
+/* LIGHTBOX */
+.lightbox{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background:rgba(0,0,0,0.9);
+    display:none;
+    justify-content:center;
+    align-items:center;
+    flex-direction:column;
+}
+
+.lightbox img{
+    max-width:90%;
+    max-height:80%;
+    border-radius:10px;
+}
+
+.close{
+    position:absolute;
+    top:20px;
+    right:30px;
+    font-size:35px;
+    color:white;
+    cursor:pointer;
+}
+
+.nav{
+    margin-top:10px;
+}
+
+.nav button{
+    padding:10px 20px;
+    margin:5px;
+    border:none;
+    border-radius:8px;
+    cursor:pointer;
+    font-size:16px;
+}
+</style>
+</head>
+
+<body>
+
+<h1>📸 My Photo Album</h1>
+
+<!-- GALLERY -->
+<div class="gallery">
+    <img src="m1 .jpeg">
+    <img src="m2.jpeg">
+    <img src="slideshoe 2.jpeg">
+    <img src="m4.jpeg">
+    <img src="m5.jpeg">
+    <img src="mm6.jpeg">
+    <img src="M8.jpeg">
+    <img src="M9.jpeg">
+    <img src="M10.jpeg">
+    <img src="M11.jpeg">
+    <img src="M12.jpeg">
+    <img src="M13.jpeg">
+    <img src="M14.jpeg">
+    <img src="M17.jpeg">
+
+
+</div>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox">
+    <span class="close" onclick="closeBox()">×</span>
+    <img id="lightboxImg">
+    <div class="nav">
+        <button onclick="prevImg()">⬅ Prev</button>
+        <button onclick="nextImg()">Next ➡</button>
+    </div>
+</div>
+
+<script>
+let images = document.querySelectorAll(".gallery img");
+let lightbox = document.getElementById("lightbox");
+let lightboxImg = document.getElementById("lightboxImg");
+
+let currentIndex = 0;
+
+// open image
+images.forEach((img, index)=>{
+    img.addEventListener("click", ()=>{
+        currentIndex = index;
+        openLightbox();
+    });
+});
+
+function openLightbox(){
+    lightbox.style.display="flex";
+    lightboxImg.src = images[currentIndex].src;
+}
+
+function closeBox(){
+    lightbox.style.display="none";
+}
+
+function nextImg(){
+    currentIndex = (currentIndex + 1) % images.length;
+    lightboxImg.src = images[currentIndex].src;
+}
+
+function prevImg(){
+    currentIndex = (currentIndex - 1 + images.length) % images.length;
+    lightboxImg.src = images[currentIndex].src;
+}
+</script>
+
+</body>
+</html>
